@@ -11,11 +11,6 @@ public class projectileScript : MonoBehaviour
     public float speed;
     float move;
     bool needSetMove = true;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -27,15 +22,12 @@ public class projectileScript : MonoBehaviour
     {
         if (!collision.gameObject.CompareTag("ennemy"))
         {
-            Debug.LogError("HIT");
             if (collision.gameObject.CompareTag("Player"))
             {
                 collision.GetComponent<PlayerScript>().TakeDamage(damage);
             }
             destroyProj();        
-           
-        }
-        
+        }  
     }
 
     public void setMove(float moveGet)
@@ -44,8 +36,7 @@ public class projectileScript : MonoBehaviour
         {
             move = moveGet;
             needSetMove = false;
-        }
-        
+        }  
     }
 
     public void destroyProj()

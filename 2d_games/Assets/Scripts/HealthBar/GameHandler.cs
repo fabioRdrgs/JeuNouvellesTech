@@ -33,4 +33,8 @@ public class GameHandler : MonoBehaviour
             healthValue = 0;
     }
 
+    public void Die()
+    {
+        Damage(healthValue);
+    }
 }

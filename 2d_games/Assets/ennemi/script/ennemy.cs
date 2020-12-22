@@ -14,16 +14,17 @@ public class ennemy : MonoBehaviour
     public float startStunTime;
     public float speed;
     protected float speedOrigin;
+    public float agroRange;
 
     // Start is called before the first frame update
     void Start()
     {
-        speed = speedOrigin;
+
     }
 
     private void Update()
     {
-      
+
         //Garde sa vitesse habituelle
         if (stunTime <= 0)
         {
@@ -31,37 +32,37 @@ public class ennemy : MonoBehaviour
         }
         else
         {
+            animator.SetBool("inMovement", false);
             speed = 0;
             stunTime -= Time.deltaTime;
         }
 
     }
-    protected void Shootprojectile(Vector2 vector)
+    protected void Shootprojectile(Transform transform, int speed)
     {
-
-        Transform  projectileInst = Instantiate(projectile, transform.position, transform.rotation);
+        Transform projectileInst = Instantiate(projectile, transform.position, transform.rotation);
         GameObject goP = GameObject.Find(projectileInst.name);
         projectileScript proj = goP.GetComponent<projectileScript>();
-        if (vector == new Vector2(2, 2))
+        if (transform.rotation.y == 180)
         {
-            proj.setMove(2);
+            proj.setMove(speed);
         }
         else
         {
-            proj.setMove(-2);
+            proj.setMove(-speed);
         }
 
     }
 
     public void TakeDamage(int damage)
     {
-        
-            animator.SetTrigger("hurt");
-            animator.SetFloat("distance_player", 10);
 
-            stunTime = startStunTime;
-            gameHandler.Damage(damage);
-        
-       
+        animator.SetTrigger("hurt");
+        animator.SetFloat("distance_player", 10);
+
+        stunTime = startStunTime;
+        gameHandler.Damage(damage);
+
+
     }
 }

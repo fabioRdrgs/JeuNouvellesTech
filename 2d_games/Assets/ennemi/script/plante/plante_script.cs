@@ -8,31 +8,29 @@ public class plante_script : ennemy
     [SerializeField]
     private GameObject instancePlante;
 
-    public float agroRange;
-
-    private bool right = true;
+    bool detect_player = false;
     bool alive = true;
-    bool shoot = true;
-    int compteur = 0;
+    bool shoot = false;
 
     Stopwatch stopwatch = new Stopwatch();
+
+    void Start()
+    {
+        stopwatch.Start();
+    }
 
     // Update is called once per frame
     void Update()
     {
         disttoPlayer = Vector2.Distance(transform.position, player.position);
         animator.SetFloat("distance_player", disttoPlayer);
+        animator.SetBool("detect_player", detect_player);
         animator.SetFloat("hp", gameHandler.healthValue);
         animator.SetBool("death", !alive);
 
-        if (compteur!=700)
-        {
-            compteur++;
-        }
-        else
+        if (stopwatch.ElapsedMilliseconds >= 2000 && disttoPlayer > 3.5)
         {
             shoot = true;
-            compteur = 0;
         }
 
         if (disttoPlayer < agroRange)
@@ -56,33 +54,31 @@ public class plante_script : ennemy
 
     private void StopChasePlayer()
     {
-        animator.SetBool("detect_player", false);
-        right = false;
-        shoot = true;
+        detect_player = false;
     }
 
     private void ChasePlayer()
     {
-        right = true;
         if (transform.position.x < player.position.x)
         {
-            transform.localScale = new Vector2(7, 7);
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         else
         {
-            transform.localScale = new Vector2(-7, 7);
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
-        if (right)
+
+        if (shoot)
         {
-            if (shoot)
+            detect_player = true;
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("plante_rangeAttack_shoot") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.2)
             {
-                animator.SetBool("detect_player", true);
-                Shootprojectile(transform.localScale);
-                stopwatch.Reset();
+                Shootprojectile(transform, 5);
+                stopwatch.Restart();
                 shoot = false;
+                detect_player = false;
             }
-            animator.SetBool("detect_player", false);
-        }
+        }   
     }
 }
