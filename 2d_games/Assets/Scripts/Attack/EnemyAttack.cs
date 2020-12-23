@@ -17,25 +17,26 @@ public class EnemyAttack : MonoBehaviour
     public LayerMask whatIsEnemies;
     [SerializeField]
     public int damage;
+    /// <summary>
+    /// Appele la méthode à chaque images par secondes
+    /// </summary>
     private void Update()
     {
+        //Si le temps de recharge entre 2 attaques est = ou < à 0, permet d'attaquer
         if (timeBtwAttack <= 0)
         {
-            Debug.Log("J'attaque");
-            //On peut attaquer
-            
-                //Crée un cercle à une position et rayon définie et tous les ennemis
-                //se trouvant dans cette 
-                Collider2D enemiesToDamage = Physics2D.OverlapCircle(attackPos.position, attackRange, whatIsEnemies);               
-            if(enemiesToDamage != null)
+
+            //Crée un cercle à une position et rayon définie et tous les ennemis se trouvant dans cette zone prendront des dégats par rapport à ceux définis de base
+            Collider2D enemiesToDamage = Physics2D.OverlapCircle(attackPos.position, attackRange, whatIsEnemies);
+            if (enemiesToDamage != null)
             {
                 enemiesToDamage.GetComponent<PlayerScript>().TakeDamage(damage);
-
             }
 
-
+            //Lance le temps de recharge entre 2 attaques
             timeBtwAttack = startTimeBtwAttack;
         }
+        //Sinon, réduit le temps de recharge entre 2 attaques de manière graduelle jusqu'à 0
         else
         {
             timeBtwAttack -= Time.deltaTime;
@@ -43,6 +44,8 @@ public class EnemyAttack : MonoBehaviour
 
 
     }
+
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
