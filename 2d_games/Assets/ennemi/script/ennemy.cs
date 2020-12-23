@@ -16,12 +16,6 @@ public class ennemy : MonoBehaviour
     protected float speedOrigin;
     public float agroRange;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     private void Update()
     {
 
@@ -38,11 +32,19 @@ public class ennemy : MonoBehaviour
         }
 
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="transform">transform du gameObject dont le projectile va partir</param>
+    /// <param name="speed">vitesse a la quelle leprojectile va partir</param>
     protected void Shootprojectile(Transform transform, int speed)
     {
+        // instentie la position du nouveaux projectile
         Transform projectileInst = Instantiate(projectile, transform.position, transform.rotation);
         GameObject goP = GameObject.Find(projectileInst.name);
+        // recupere les composant du script projectileScript
         projectileScript proj = goP.GetComponent<projectileScript>();
+        // verifie ou regarde le monstre afin de tirer le projectile dans la bonne direction 
         if (transform.rotation.y == 180)
         {
             proj.setMove(speed);
@@ -54,6 +56,10 @@ public class ennemy : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// fait prendre des degats au monstre
+    /// </summary>
+    /// <param name="damage">nombre de point de vie que le mostre va perdre </param>
     public void TakeDamage(int damage)
     {
 
