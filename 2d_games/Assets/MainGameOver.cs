@@ -7,6 +7,7 @@ public class MainGameOver : MonoBehaviour
 {
     public void RestartGame()
     {
+        //Charge la scene de game over
         SceneManager.LoadScene(0);
     }
 }

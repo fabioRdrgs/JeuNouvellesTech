@@ -17,6 +17,7 @@ public class plante_script : ennemy
 
     void Start()
     {
+        player = GameObject.Find("Sprite").GetComponent<Transform>();
         stopwatch.Start();
     }
 

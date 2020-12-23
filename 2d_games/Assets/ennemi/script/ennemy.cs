@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ennemy : MonoBehaviour
 {
+   [HideInInspector]
     public Transform player;
     public GameHandler gameHandler;
     public GameObject BarreDeVie;

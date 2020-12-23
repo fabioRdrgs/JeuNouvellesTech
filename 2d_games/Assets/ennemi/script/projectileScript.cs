@@ -12,9 +12,7 @@ public class projectileScript : MonoBehaviour
     float direction;
     bool needSetMove = true;
 
-    /// <summary>
-    /// Appelle cette méthode à chaque image par secondes de l'application
-    /// </summary>
+    // Update is called once per frame
     void Update()
     {
         // deplace le projectile
@@ -54,7 +52,7 @@ public class projectileScript : MonoBehaviour
     }
 
     /// <summary>
-    /// détruit le projectile
+    /// detruit le projectile
     /// </summary>
     public void destroyProj()
     {
